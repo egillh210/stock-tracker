@@ -10,6 +10,7 @@ import {
     ResponsiveContainer,
     AreaChart,
     Area,
+    Label,
     ReferenceLine,
 } from 'recharts';
 import { _ChartSingleDataPoint, Range } from '../../models';
@@ -162,7 +163,9 @@ const Chart: React.FC<ChartProps> = ({ errorQuote, prices, ticker, open, latest,
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="label"/>
                         <YAxis orientation="right" domain={['dataMin', 'auto']} tickLine={false}/>
-                        <ReferenceLine y={now.close} stroke={'orange'} strokeDasharray="3 3" />
+                        <ReferenceLine y={now.close} stroke={'orange'} strokeDasharray="3 3" label={
+                                <Label value={latest} position="right" fill="orange" />
+                                } />
                         <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
                         <Area connectNulls type="monotone" dataKey="close" name="price" unit=" USD" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} />
                     </AreaChart>
