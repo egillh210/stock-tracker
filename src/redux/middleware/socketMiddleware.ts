@@ -39,9 +39,8 @@ const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string =
 
             if (type === UPDATE_TICKER) {
                 const { favorites, charts: { range } } = getState();
-                const tickerPlusFavorites = Array.from(new Set([...favorites, payload]));
                 dispatch(resetState(undefined))
-                socket.emit('prices', tickerPlusFavorites);
+                socket.emit('prices', Array.from(new Set([...favorites, payload])));
                 socket.emit('ticker', payload);
                 socket.emit('chart', [payload, range])
             }

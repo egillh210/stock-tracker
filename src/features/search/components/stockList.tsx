@@ -1,5 +1,6 @@
-import React, { Dispatch, SetStateAction, RefObject, memo } from 'react'
+import React, { RefObject, memo } from 'react'
 import styled from '@emotion/styled'
+import { Stock, ChangeTicker } from '../'
 
 const StockListLayoutContainer = styled.div`
     position: absolute;
@@ -52,44 +53,25 @@ const TdEx = styled.span`
     margin-left: 10px;
 `
 
-type _Stock = {
-    name: string,
-    symbol: string,
-    exchange?: string
-}
-
-type StockListItem = {
-    symbol: string,
-    name: string
-}
 
 type StockListProps = {
-    setQuery: Dispatch<SetStateAction<string>>,
-    inputSelect: RefObject<HTMLInputElement>,
-    search: (query: string) => void,
-    setSelectedStock: Dispatch<SetStateAction<string[]>>,
-    setStockList: Dispatch<SetStateAction<StockListItem[]>>,
+    changeTicker: ChangeTicker,
     dropSelect: RefObject<HTMLDivElement>,
-    stockList: StockListItem[],
+    stockList: Stock[],
 }
 
-export const StockList = memo<StockListProps>(({setQuery, inputSelect, search, setStockList, setSelectedStock, dropSelect, stockList}) => {
+export const StockList = memo<StockListProps>(({ 
+    changeTicker,
+    dropSelect, 
+    stockList 
+    }) => {
 
-    const onStockClick = (stock: _Stock) => {
-        const stockSymbol = stock.symbol
-        const stockName = stock.name
-        setQuery(`${stockName} (${stockSymbol})`)
-        inputSelect.current!.blur()
-        search(stockSymbol)
-        setStockList([])
-        setSelectedStock([`${stock.name}`, `(${stock.symbol})`])
-    }
-
-    const renderSymbols = (stock: _Stock) => {
+    const renderSymbols = (stock: Stock) => {
+        const { name, symbol, exchange } = stock;
         return (
-                <TR key={stock.name} onClick={() => onStockClick(stock)}>
-                    <TdSymbol>{stock.symbol}</TdSymbol>
-                    <TdName>{stock.name} <TdEx>{stock.exchange}</TdEx></TdName>
+                <TR key={name} onClick={() => changeTicker(stock)}>
+                    <TdSymbol>{symbol}</TdSymbol>
+                    <TdName>{name} <TdEx>{exchange}</TdEx></TdName>
                 </TR>
         )
     }
@@ -98,7 +80,7 @@ export const StockList = memo<StockListProps>(({setQuery, inputSelect, search, s
         <StockListLayoutContainer ref={dropSelect} tabIndex={-1}>
             <table style={{width: '100%'}}>
                 <tbody style={{fontSize: '18px'}}>
-                    {stockList.map( stock => renderSymbols(stock))}
+                    {stockList.map(stock => renderSymbols(stock))}
                 </tbody> 
             </table>               
         </StockListLayoutContainer>

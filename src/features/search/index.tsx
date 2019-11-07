@@ -46,13 +46,15 @@ const DateRowLayoutContainer = styled.div`
     }
 `
 
-
-type Search = (query: string) => void;
-
-type StockListItem = {
+export type Stock = {
+    name: string,
     symbol: string,
-    name: string
+    exchange: string
 }
+
+export type Search = (query: string) => void;
+
+export type ChangeTicker = (stock: Stock) => void;
 
 
 const socket = socketService.get();
@@ -61,12 +63,11 @@ export const Search: FC<{}> = () => {
 
     const dispatch = useDispatch();
 
-    const [query, setQuery] = useState<string>('Apple Inc (AAPL)');
-    const [stockList, setStockList] = useState<StockListItem[]>([])
-    const [isOpen, toggleIsOpen] = useState<boolean>(false)
-    const dropSelect = useRef<HTMLDivElement>(null)
-    const inputSelect = useRef<HTMLInputElement>(null)
-    const [selectedStock, setSelectedStock] = useState<string[]>(['Apple Inc', '(AAPL)'])
+    const [query, setQuery] = useState<string>('');
+    const [stockList, setStockList] = useState<Stock[]>([]);
+    const dropSelect = useRef<HTMLDivElement>(null);
+    const inputSelect = useRef<HTMLInputElement>(null);
+    const [selectedStock, setSelectedStock] = useState<string>('Apple Inc. (AAPL)');
 
     const tags: string[] = useSelector(({ companyOverview: { tags }}: AppState) => tags);
     const primaryExchange: string | null = useSelector(({ keyStats: { primaryExchange } }: AppState) => primaryExchange);
@@ -77,42 +78,65 @@ export const Search: FC<{}> = () => {
     });
     const latestTime: string | null = useSelector(({ keyStats: { latestTime } }: AppState) => latestTime)
     const search: Search = useCallback((query: string) => dispatch(updateTicker(query)), [query, dispatch]);
-    const errorQuote = ''
 
-    useEffect(() => {
-        if(errorQuote.length > 0) {
-            setStockList([{name: errorQuote, symbol:'⊗'}])
+    const changeTicker: ChangeTicker = (stock) => {
+        if (stock.hasOwnProperty('symbol')) {
+            const { name, symbol } = stock;
+            search(symbol);
+            setQuery('');
+            setSelectedStock(`${name} (${symbol})`);
         }
-    }, [errorQuote])
-
-    useEffect(() => {
-        toggleIsOpen(stockList.length !== 0)
-    },[ stockList.length])
+    }
 
     useEffect(() => {
         socket.on('search', setStockList)
+        socket.on('isValid', changeTicker)
         return () => void socket.off('search', setStockList);
     }, []);
 
     useEffect(() => {
-        if(query === '') {
-            setStockList([]);
-            return;
-        }
-
-        socket.emit('search', query);
+        query.length && socket.emit('search', query);
     }, [query]);
 
     return (
         <SearchLayoutContainer>
             <SearchRowLayoutContainer>
-                <SearchBar inputSelect={inputSelect} dropSelect={dropSelect} setQuery={setQuery} isOpen={isOpen} toggleIsOpen={toggleIsOpen} search={search} query={query} stockList={stockList} setSelectedStock={setSelectedStock} selectedStock={selectedStock} socket={socket} />
+                <SearchBar 
+                    inputSelect={inputSelect} 
+                    setQuery={setQuery} 
+                    search={search} 
+                    query={query} 
+                    stockList={stockList} 
+                    setSelectedStock={setSelectedStock} 
+                    selectedStock={selectedStock} 
+                    socket={socket} 
+                />
                 <TickerCard {...price} />
-                {isOpen && <StockList setQuery={setQuery} inputSelect={inputSelect} search={search} setStockList={setStockList} setSelectedStock={setSelectedStock} dropSelect={dropSelect} stockList={stockList} /> }
+                {
+                    query.length > 0 && 
+                    <StockList 
+                        changeTicker={changeTicker} 
+                        dropSelect={dropSelect} 
+                        stockList={stockList} 
+                    /> 
+                }
             </SearchRowLayoutContainer>
             <DateRowLayoutContainer>
-                {primaryExchange && <Tags primaryExchange={primaryExchange} tags={tags} />}
-                {primaryExchange && <DateTime latestTime={latestTime} tags={tags} isUSMarketOpen={isUSMarketOpen} />}
+                {
+                    primaryExchange && 
+                    <Tags 
+                        primaryExchange={primaryExchange} 
+                        tags={tags} 
+                    />
+                }
+                {
+                    primaryExchange && 
+                    <DateTime 
+                        latestTime={latestTime} 
+                        tags={tags} 
+                        isUSMarketOpen={isUSMarketOpen} 
+                    />
+                }
             </DateRowLayoutContainer>
         </SearchLayoutContainer>
     )

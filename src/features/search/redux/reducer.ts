@@ -1,4 +1,4 @@
-import { UpdateTickerAction, UPDATE_TICKER } from './actions';
+import { UpdateTickerAction, UPDATE_TICKER, UpdateSelectedStockAction } from './actions';
 import { Reducer } from 'redux';
 
 export const search: Reducer<string, UpdateTickerAction> = (
