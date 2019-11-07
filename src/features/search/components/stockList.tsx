@@ -31,7 +31,7 @@ const TdName = styled.td`
     padding-top: 8px;
     padding-bottom: 8px;
     position: absolute;
-    left: 60px;
+    left: 80px;
 `
 
 const TR = styled.tr`
@@ -56,13 +56,11 @@ const TdEx = styled.span`
 
 type StockListProps = {
     changeTicker: ChangeTicker,
-    dropSelect: RefObject<HTMLDivElement>,
     stockList: Stock[],
 }
 
 export const StockList = memo<StockListProps>(({ 
     changeTicker,
-    dropSelect, 
     stockList 
     }) => {
 
@@ -77,7 +75,7 @@ export const StockList = memo<StockListProps>(({
     }
 
     return (
-        <StockListLayoutContainer ref={dropSelect} tabIndex={-1}>
+        <StockListLayoutContainer tabIndex={-1}>
             <table style={{width: '100%'}}>
                 <tbody style={{fontSize: '18px'}}>
                     {stockList.map(stock => renderSymbols(stock))}

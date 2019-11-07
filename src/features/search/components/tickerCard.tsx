@@ -63,7 +63,12 @@ type TickerCardPropTypes = {
     error: boolean,
 }
 
-export const TickerCard = memo<TickerCardPropTypes>(({ latestPrice, change, changePercent, error }) => {
+export const TickerCard = memo<TickerCardPropTypes>(({ 
+    latestPrice, 
+    change, 
+    changePercent, 
+    error 
+    }) => {
 
     return (
         <PriceStats>

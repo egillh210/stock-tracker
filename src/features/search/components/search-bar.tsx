@@ -47,7 +47,6 @@ const Input = styled.input`
 
 
 type SearchBarProps = {
-    inputSelect: RefObject<HTMLInputElement>,
     search: Search,
     query: string,
     setQuery: Dispatch<SetStateAction<string>>,
@@ -58,7 +57,6 @@ type SearchBarProps = {
 }
 
 export const SearchBar = memo<SearchBarProps>(({ 
-    inputSelect, 
     query, 
     setQuery, 
     selectedStock, 
@@ -81,7 +79,6 @@ export const SearchBar = memo<SearchBarProps>(({
             <Input 
                 id='search' 
                 placeholder={selectedStock}
-                ref={inputSelect} 
                 value={query} 
                 onChange={onChange}
                 onKeyPress={onKeyPress} 

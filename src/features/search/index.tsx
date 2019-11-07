@@ -65,15 +65,12 @@ export const Search: FC<{}> = () => {
 
     const [query, setQuery] = useState<string>('');
     const [stockList, setStockList] = useState<Stock[]>([]);
-    const dropSelect = useRef<HTMLDivElement>(null);
-    const inputSelect = useRef<HTMLInputElement>(null);
     const [selectedStock, setSelectedStock] = useState<string>('Apple Inc. (AAPL)');
 
     const tags: string[] = useSelector(({ companyOverview: { tags }}: AppState) => tags);
     const primaryExchange: string | null = useSelector(({ keyStats: { primaryExchange } }: AppState) => primaryExchange);
     const isUSMarketOpen: boolean = useSelector(({ keyStats: { isUSMarketOpen } }: AppState) => isUSMarketOpen)
-    const price: PriceSingleDataPoint = useSelector((store: AppState) => {
-        const { search, prices } = store;
+    const price: PriceSingleDataPoint = useSelector(({ prices, search}: AppState) => {
         return prices.find(({ ticker }) => ticker === search) || prices[0];
     });
     const latestTime: string | null = useSelector(({ keyStats: { latestTime } }: AppState) => latestTime)
@@ -102,7 +99,6 @@ export const Search: FC<{}> = () => {
         <SearchLayoutContainer>
             <SearchRowLayoutContainer>
                 <SearchBar 
-                    inputSelect={inputSelect} 
                     setQuery={setQuery} 
                     search={search} 
                     query={query} 
@@ -116,7 +112,6 @@ export const Search: FC<{}> = () => {
                     query.length > 0 && 
                     <StockList 
                         changeTicker={changeTicker} 
-                        dropSelect={dropSelect} 
                         stockList={stockList} 
                     /> 
                 }
