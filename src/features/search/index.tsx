@@ -84,7 +84,7 @@ export const Search: FC<{}> = () => {
             setSelectedStock(`${name} (${symbol})`);
         }
     }
-
+    
     useEffect(() => {
         socket.on('search', setStockList)
         socket.on('isValid', changeTicker)
@@ -119,18 +119,17 @@ export const Search: FC<{}> = () => {
             <DateRowLayoutContainer>
                 {
                     primaryExchange && 
-                    <Tags 
-                        primaryExchange={primaryExchange} 
-                        tags={tags} 
-                    />
-                }
-                {
-                    primaryExchange && 
-                    <DateTime 
-                        latestTime={latestTime} 
-                        tags={tags} 
-                        isUSMarketOpen={isUSMarketOpen} 
-                    />
+                    <>
+                        <Tags 
+                            primaryExchange={primaryExchange} 
+                            tags={tags} 
+                        />
+                        <DateTime 
+                            latestTime={latestTime} 
+                            tags={tags} 
+                            isUSMarketOpen={isUSMarketOpen} 
+                        />
+                    </>
                 }
             </DateRowLayoutContainer>
         </SearchLayoutContainer>

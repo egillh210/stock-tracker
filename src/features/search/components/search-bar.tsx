@@ -21,7 +21,7 @@ const SearchIcon = styled.div`
     height: 23.5px;
     width: 23.5px;
     transform: rotate(-45deg);
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     margin-right: 30px;
     color: #7fb3ff;
     font-size: 40px;

@@ -67,7 +67,7 @@ export const Graph = memo<GraphProps>(({
                     strokeDasharray="3 3" 
                     label={
                         <Label 
-                            value={latest && latest.toFixed(2)} 
+                            value={latest.toFixed(2)} 
                             position="right" 
                             fill="#e95656" 
                         />} 

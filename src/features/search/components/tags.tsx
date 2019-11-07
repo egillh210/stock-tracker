@@ -24,12 +24,12 @@ type TagsProps = {
     tags: string[], 
 }
 
-export const Tags = memo<TagsProps>(({primaryExchange, tags}) => {
+export const Tags = memo<TagsProps>(({primaryExchange, tags: [sector, currency]}) => {
     return (
         <TagsLayoutContainer>
             <Tag>{primaryExchange}</Tag>
-            <Tag>{tags[0]}</Tag>
-            <Tag>{tags[1]}</Tag>
+            <Tag>{sector}</Tag>
+            <Tag>{currency}</Tag>
         </TagsLayoutContainer>
     )
 })

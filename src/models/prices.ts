@@ -1,8 +1,8 @@
 export interface PriceSingleDataPoint {
     ticker: string,
     latestPrice: number,
-    change: number | null,
-    changePercent: number | null,
+    change: number,
+    changePercent: number,
     error: boolean,
 }
 
