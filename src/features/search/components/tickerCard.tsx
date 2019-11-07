@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import styled from '@emotion/styled'
+import { PriceSingleDataPoint } from '../../../models/prices';
 
 const PriceStats = styled.div`
     font-size: inherit;
@@ -18,13 +19,8 @@ const PriceStats = styled.div`
     };
 `
 
-type SpanProps = {
-    color: string
-}
-
-const ChangeItem = styled.span<SpanProps>`
+const ChangeItem = styled.span`
     display: flex;
-    color: ${(props: SpanProps) => props.color};
     margin-left: 5px;
     margin-right: 5px;
 `
@@ -52,64 +48,40 @@ const DollarIcon = styled.div`
     margin-top: 6px;
 `
 
-const ChangeContainer = styled.div`
+type ColorProps = {
+    color: string
+}
+
+const ChangeContainer = styled.div<ColorProps>`
+    color: ${(props: ColorProps) => props.color};
     display: flex;
 `
 
-type TickerCardPropTypes = {
-    latestPrice: number | undefined,
-    change: number | null,
-    changePercent: number | null,
-    error: boolean,
-}
-
-export const TickerCard = memo<TickerCardPropTypes>(({ 
+export const TickerCard = memo<PriceSingleDataPoint>(({ 
     latestPrice, 
     change, 
     changePercent, 
     error 
     }) => {
 
+    const isPositive = change >= 0;
+
     return (
         <PriceStats>
-            {
-                latestPrice ? 
-                    <PriceSpan>
-                        <DollarIcon>$</DollarIcon>
-                        {latestPrice.toFixed(2)}
-                    </PriceSpan> 
-                : null
-            }
-            <ChangeContainer>
-                {
-                    !change ? null 
-                    : change > 0 ? 
-                        <ChangeItem color='#91e4a5'>
-                            <PriceIcon>&#129121;</PriceIcon>
-                            {Math.abs(change).toFixed(2)}
-                        </ChangeItem> 
-                    : <ChangeItem color='#e95656'><PriceIcon>&#129123;</PriceIcon>{Math.abs(change).toFixed(2)}</ChangeItem>
-                } 
-                {
-                    !change ? null 
-                    : change > 0 ? 
-                        <ChangeItem color='#91e4a5'>|</ChangeItem> 
-                    : 
-                        <ChangeItem color='#e95656'>|</ChangeItem> 
-                }
-                {
-                    !changePercent ? null 
-                    : changePercent > 0 ? 
-                        <ChangeItem color='#91e4a5'>
-                            {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
-                            <PriceIcon>%</PriceIcon>
-                        </ChangeItem> 
-                    : 
-                        <ChangeItem color='#e95656'>
-                            {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
-                            <PriceIcon>%</PriceIcon>
-                        </ChangeItem>
-                }
+            <PriceSpan>
+                <DollarIcon>$</DollarIcon>
+                {latestPrice.toFixed(2)}
+            </PriceSpan>
+            <ChangeContainer color={isPositive ? '#91e4a5' : '#e95656'}>
+                <ChangeItem>
+                    {isPositive ? <PriceIcon>&#129121;</PriceIcon> : <PriceIcon>&#129123;</PriceIcon>}
+                    {Math.abs(change).toFixed(2)}
+                </ChangeItem> 
+                <ChangeItem>|</ChangeItem>
+                <ChangeItem>
+                    {(changePercent * 100).toFixed(2)}
+                    <PriceIcon>%</PriceIcon>
+                </ChangeItem> 
             </ChangeContainer>
         </PriceStats>
     )
