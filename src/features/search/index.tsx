@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, FC, useCallback } from 'react';
+import React, { useState, useEffect, FC, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { PriceSingleDataPoint } from '../../models/prices';
 import { AppState } from '../../models/appState';
@@ -74,22 +74,22 @@ export const Search: FC<{}> = () => {
         return prices.find(({ ticker }) => ticker === search) || prices[0];
     });
     const latestTime: string | null = useSelector(({ keyStats: { latestTime } }: AppState) => latestTime)
-    const search: Search = useCallback((query: string) => dispatch(updateTicker(query)), [query, dispatch]);
+    const search: Search = useCallback((query: string) => dispatch(updateTicker(query)), [dispatch]);
 
-    const changeTicker: ChangeTicker = (stock) => {
+    const changeTicker: ChangeTicker = useCallback((stock: Stock) => {
         if (stock.hasOwnProperty('symbol')) {
             const { name, symbol } = stock;
             search(symbol);
             setQuery('');
             setSelectedStock(`${name} (${symbol})`);
         }
-    }
+    }, [search])
     
     useEffect(() => {
         socket.on('search', setStockList)
         socket.on('isValid', changeTicker)
         return () => void socket.off('search', setStockList);
-    }, []);
+    }, [changeTicker]);
 
     useEffect(() => {
         query.length && socket.emit('search', query);

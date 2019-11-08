@@ -2,13 +2,12 @@ import React, { FC } from 'react';
 import { PriceSingleDataPoint } from '../../models/prices';
 import { AppState } from '../../models/appState';
 import USMarketsMockData from './USMarketsMockData.json';
-
-import { FooterTickerCard } from './components';
-
+import { TickerPrice } from './components';
 import styled from '@emotion/styled'
 import { useSelector } from 'react-redux';
+const { div } = styled;
 
-const FooterLayoutContainer = styled.div`
+const FooterLayoutContainer = div`
     position: fixed;
     bottom: 0;
     align-self: flex-end;
@@ -16,7 +15,6 @@ const FooterLayoutContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 40px;
     height: 60px;
     width: 100%;
     @media(max-width: 588px) {
@@ -24,7 +22,7 @@ const FooterLayoutContainer = styled.div`
     };
 `
 
-const FavouritesLayoutContainer = styled.div`
+const FavouritesLayoutContainer = div`
     width: 50%;
     overflow: hidden;
     @media(max-width: 1390px) {
@@ -32,7 +30,7 @@ const FavouritesLayoutContainer = styled.div`
     }
 `
 
-const MarketsLayoutContainer = styled.div`
+const MarketsLayoutContainer = div`
     width: 50%;
     overflow: hidden;
     @media(max-width: 1390px) {
@@ -40,7 +38,7 @@ const MarketsLayoutContainer = styled.div`
     }
 `
 
-const Header = styled.div`
+const Header = div`
     width: 67px;
     height: 15px;
     margin-top: 9px;
@@ -51,25 +49,17 @@ const Header = styled.div`
     font-weight: 400;
 `
 
-const FooterSection = styled.div`
+const FooterSection = div`
     margin-left: 19px;
-    margin-top: 3px;
     margin-bottom: 12px;
     height: 17px;
     font-family: Lato;
     display: flex;
-    flex-direction: row;
     overflow: hidden;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
-    font-size: 14px;
 `
 
-const Seperator = styled.div`
+const Seperator = div`
     opacity: 0.1;
     border: solid 1px white;
     @media(max-width: 1390px) {
@@ -79,11 +69,11 @@ const Seperator = styled.div`
 
 export const Footer: FC<{}> = () => {
 
-    const prices: PriceSingleDataPoint[] = useSelector((store: AppState) => store.prices);
-    const favorites: string[] = useSelector((store: AppState) => store.favorites);
+    const prices: PriceSingleDataPoint[] = useSelector(({ prices }: AppState) => prices);
+    const favorites: string[] = useSelector(({ favorites }: AppState) => favorites);
     
-    const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <FooterTickerCard key={item.ticker} {...item} /> );
-    const usMarketsArray = USMarketsMockData.map(item => <FooterTickerCard key={item.ticker} {...item}/>)
+    const favoritesArray = prices[0] && prices.filter(({ ticker }) => ticker && favorites.includes(ticker)).map(item => <TickerPrice key={item.ticker} {...item} /> );
+    const usMarketsArray = USMarketsMockData.map(item => <TickerPrice key={item.ticker} {...item}/>)
 
     return (
         <FooterLayoutContainer>

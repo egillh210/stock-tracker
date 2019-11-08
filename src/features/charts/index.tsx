@@ -33,7 +33,7 @@ export const Chart: FC<{}> = () => {
         return latestPrice;
     });
     const dispatch = useDispatch();
-    const updateRange: UpdateChartRange = useCallback((range: Range) => dispatch(updateChartRange(range)), [range, dispatch])
+    const updateRange: UpdateChartRange = useCallback((range: Range) => dispatch(updateChartRange(range)), [dispatch])
 
     return (
             <ChartLayoutContainer>

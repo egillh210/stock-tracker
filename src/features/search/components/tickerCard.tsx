@@ -61,7 +61,7 @@ export const TickerCard = memo<PriceSingleDataPoint>(({
     latestPrice, 
     change, 
     changePercent, 
-    error 
+    error
     }) => {
 
     const isPositive = change >= 0;
@@ -79,7 +79,7 @@ export const TickerCard = memo<PriceSingleDataPoint>(({
                 </ChangeItem> 
                 <ChangeItem>|</ChangeItem>
                 <ChangeItem>
-                    {(changePercent * 100).toFixed(2)}
+                    {(Math.abs(changePercent) * 100).toFixed(2)}
                     <PriceIcon>%</PriceIcon>
                 </ChangeItem> 
             </ChangeContainer>

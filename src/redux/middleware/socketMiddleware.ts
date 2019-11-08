@@ -4,11 +4,10 @@ import { CompanyOverview } from '../../features/companyOverview/models/companyOv
 import { News } from '../../features/news/models/news'
 import { KeyStats } from '../../features/keystats/models/keyStats'
 import { ChartSingleDataPoint } from '../../features/charts/models'
-import { Error } from '../../models/errors'
 import { 
     updatePricesData,
     updateChartData,
-    updateChartRange, UPDATE_CHART_RANGE,
+    UPDATE_CHART_RANGE,
     resetState,
     updateCompany,
     updateKeyStats,

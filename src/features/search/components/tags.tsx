@@ -24,7 +24,11 @@ type TagsProps = {
     tags: string[], 
 }
 
-export const Tags = memo<TagsProps>(({primaryExchange, tags: [sector, currency]}) => {
+export const Tags = memo<TagsProps>(({
+    primaryExchange, 
+    tags: [sector, currency]
+    }) => {
+        
     return (
         <TagsLayoutContainer>
             <Tag>{primaryExchange}</Tag>

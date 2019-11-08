@@ -1,4 +1,4 @@
-import React, { RefObject, memo } from 'react'
+import React, { memo } from 'react'
 import styled from '@emotion/styled'
 import { Stock, ChangeTicker } from '../'
 
