@@ -1,7 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../models/appState';
 import { Title } from '../../Root'
 import styled from '@emotion/styled'
 import { Loader } from '../loader/Loader'
+import { socketService } from '../../services/socket-service';
+
 
 const PeersLayoutContainer = styled.div`
     max-height: 30%;
@@ -29,25 +33,18 @@ const Peer = styled.span`
     }
 `
 
-type PeersProps = {
-    peers: string[],
-}
-
-type ErrorLoading = {
-    errorPeers: {
-        message: string
-    },
-    isFetchingPeers: boolean,
-}
-
 const HARD_PEERS = [
-    'MSFT',' NOK', 'IBM'
+    'MSFT','AMZN', 'IBM'
 ]
+
+const socket = socketService.get();
 
 export const Peers: FC<{}> = () => {
 
-    const renderPeer = (peer: string) => {
-        return <Peer key={peer} >{peer}</Peer>
+    const peers: string[] = useSelector(({ peers: [stateIsNotEmpty] }: AppState) => stateIsNotEmpty ? peers : HARD_PEERS);
+
+    const handleClick = (peer: string) => {
+        socket.emit('isValid', peer);
     }
 
     return (
@@ -55,7 +52,7 @@ export const Peers: FC<{}> = () => {
                 <Title>TOP PEERS</Title>
                 {
                     !false
-                    ? <ContentContainer>{HARD_PEERS.map( peer => renderPeer(peer))}</ContentContainer>
+                    ? <ContentContainer>{peers.map( peer => <Peer onClick={() => handleClick(peer)} key={peer}>{peer}</Peer>)}</ContentContainer>
                     : <Loader className='flex-direction: column; margin-top: 30px; @media(max-width: 750px) { margin-top: 50px; margin-bottom: 50px;}' size={50} seperation={2} speed={1.4} /> 
                 }
             </PeersLayoutContainer>

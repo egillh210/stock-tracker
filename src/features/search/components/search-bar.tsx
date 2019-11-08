@@ -6,9 +6,9 @@ import React, {
     ChangeEvent,
 } from 'react'
 import styled from '@emotion/styled'
-import { Stock, Search } from '../'
+const { div, input } = styled;
 
-const SearchBarLayoutContainer = styled.div`
+const SearchBarLayoutContainer = div`
     display: flex;
     flex: 1 0 0;
     align-items: center;
@@ -16,7 +16,7 @@ const SearchBarLayoutContainer = styled.div`
     position: relative;
 `
 
-const SearchIcon = styled.div`
+const SearchIcon = div`
     height: 23.5px;
     width: 23.5px;
     transform: rotate(-45deg);
@@ -26,7 +26,7 @@ const SearchIcon = styled.div`
     font-size: 40px;
 `
 
-const Input = styled.input`
+const Input = input`
     background-color: rgba(0,0,0,0);
     color: rgba(255, 255, 255, 0);
     font-size: 40px;
@@ -46,11 +46,8 @@ const Input = styled.input`
 
 
 type SearchBarProps = {
-    search: Search,
     query: string,
     setQuery: Dispatch<SetStateAction<string>>,
-    stockList: Stock[],
-    setSelectedStock: Dispatch<SetStateAction<string>>,
     selectedStock: string,
     socket: SocketIOClient.Socket,
 }

@@ -1,8 +1,10 @@
 import { UpdatePeersAction, UPDATE_PEERS } from './actions'
 import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
 
+const initialState = ['']
+
 export const peers = (
-    state = [''],
+    state = initialState,
     action: UpdatePeersAction
     ) => {
     const { type, payload } = action
@@ -11,7 +13,7 @@ export const peers = (
             return payload
         }
         case RESET_APP_STATE: {
-            return ['']
+            return initialState
         }
         default: {
             return state;

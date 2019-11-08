@@ -100,10 +100,7 @@ export const Search: FC<{}> = () => {
             <SearchRowLayoutContainer>
                 <SearchBar 
                     setQuery={setQuery} 
-                    search={search} 
                     query={query} 
-                    stockList={stockList} 
-                    setSelectedStock={setSelectedStock} 
                     selectedStock={selectedStock} 
                     socket={socket} 
                 />
@@ -111,7 +108,7 @@ export const Search: FC<{}> = () => {
                 {
                     query.length > 0 && 
                     <StockList 
-                        changeTicker={changeTicker} 
+                        socket={socket}
                         stockList={stockList} 
                     /> 
                 }
