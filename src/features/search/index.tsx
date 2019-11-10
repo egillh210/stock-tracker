@@ -1,6 +1,5 @@
 import React, { useState, useEffect, FC, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { PriceSingleDataPoint } from '../../models/prices';
 import { AppState } from '../../models/appState';
 import { TickerCard } from './components/tickerCard';
 import styled from '@emotion/styled'
@@ -10,8 +9,11 @@ import { StockList } from './components/stockList'
 import { DateTime } from './components/date'
 import { Tags } from './components/tags'
 import { updateTicker } from './redux/actions';
+import { PriceSingleDataPoint } from '../../models/prices';
 
-const SearchLayoutContainer = styled.div`
+const { div } = styled;
+
+const SearchLayoutContainer = div`
     flex: 1 0 auto;
     margin-bottom: -40px;
     @media(max-width: 1000px) {
@@ -22,7 +24,7 @@ const SearchLayoutContainer = styled.div`
     }
 `
 
-const SearchRowLayoutContainer = styled.div`
+const SearchRowLayoutContainer = div`
     min-height: 48px;
     padding-bottom: 7px;
     position: relative;
@@ -37,7 +39,7 @@ const SearchRowLayoutContainer = styled.div`
     };
 `
 
-const DateRowLayoutContainer = styled.div`
+const DateRowLayoutContainer = div`
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
@@ -50,6 +52,13 @@ export type Stock = {
     name: string,
     symbol: string,
     exchange: string
+}
+
+type Selectors = {
+    tags: string[],
+    primaryExchange: string | null,
+    isUSMarketOpen: boolean,
+    latestTime: string | null
 }
 
 export type Search = (query: string) => void;
@@ -67,13 +76,31 @@ export const Search: FC<{}> = () => {
     const [stockList, setStockList] = useState<Stock[]>([]);
     const [selectedStock, setSelectedStock] = useState<string>('Apple Inc. (AAPL)');
 
-    const tags: string[] = useSelector(({ companyOverview: { tags }}: AppState) => tags);
-    const primaryExchange: string | null = useSelector(({ keyStats: { primaryExchange } }: AppState) => primaryExchange);
-    const isUSMarketOpen: boolean = useSelector(({ keyStats: { isUSMarketOpen } }: AppState) => isUSMarketOpen)
-    const price: PriceSingleDataPoint = useSelector(({ prices, search}: AppState) => {
-        return prices.find(({ ticker }) => ticker === search) || prices[0];
+    const {
+        tags,
+        primaryExchange,
+        isUSMarketOpen,
+        latestTime,
+    }: Selectors = useSelector(({
+        companyOverview: { tags },
+        keyStats: {
+            primaryExchange,
+            isUSMarketOpen,
+            latestTime
+        }
+    }: AppState) => {
+        return {
+            tags,
+            primaryExchange,
+            isUSMarketOpen,
+            latestTime,
+        }
     });
-    const latestTime: string | null = useSelector(({ keyStats: { latestTime } }: AppState) => latestTime)
+
+    const price: PriceSingleDataPoint = useSelector(({ prices, search }: AppState) => {
+        return prices.find(({ ticker }) => ticker === search) || prices[0];
+    })
+
     const search: Search = useCallback((query: string) => dispatch(updateTicker(query)), [dispatch]);
 
     const changeTicker: ChangeTicker = useCallback((stock: Stock) => {
