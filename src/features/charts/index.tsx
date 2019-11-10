@@ -6,6 +6,8 @@ import { Graph, RangeButtons } from'./components'
 import { ChartSingleDataPoint, Range } from './models';
 import { updateChartRange } from './redux';
 import { AppState } from '../../models/appState';
+import { currentPrice } from '../../redux/selectors/prices';
+import { PriceSingleDataPoint } from '../../models/prices';
 
 const ChartLayoutContainer = styled.div`    
     flex: 0 1 66%;
@@ -27,11 +29,7 @@ export const Chart: FC<{}> = () => {
 
     const prices: ChartSingleDataPoint[] = useSelector((store: AppState) => store.charts.prices);
     const range: Range = useSelector((store: AppState) => store.charts.range);
-    const latest: number = useSelector((store: AppState) => {
-        const { search, prices } = store;
-        const { latestPrice } = prices.find(({ ticker }) => ticker === search) || prices[0];
-        return latestPrice;
-    });
+    const { latestPrice }: PriceSingleDataPoint = useSelector(currentPrice);
     const dispatch = useDispatch();
     const updateRange: UpdateChartRange = useCallback((range: Range) => dispatch(updateChartRange(range)), [dispatch])
 
@@ -47,12 +45,19 @@ export const Chart: FC<{}> = () => {
                         <Graph 
                             prices={prices} 
                             range={range} 
-                            latest={latest}
+                            latest={latestPrice}
                         />
                     </>
                     : 
                         <Loader 
-                            className='margin-top: 250px; @media(max-width: 750px) { margin-top: 10px; margin-bottom: 50px; }' 
+                            className={`
+                                margin-top: 250px; 
+                                @media(max-width: 750px) 
+                                { 
+                                    margin-top: 10px; 
+                                    margin-bottom: 50px; 
+                                }`
+                            }
                             size={50} 
                             seperation={2} 
                             speed={1.4} 

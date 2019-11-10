@@ -10,6 +10,7 @@ import { DateTime } from './components/date'
 import { Tags } from './components/tags'
 import { updateTicker } from './redux/actions';
 import { PriceSingleDataPoint } from '../../models/prices';
+import { currentPrice } from '../../redux/selectors/prices';
 
 const { div } = styled;
 
@@ -57,14 +58,12 @@ export type Stock = {
 type Selectors = {
     tags: string[],
     primaryExchange: string | null,
-    isUSMarketOpen: boolean,
-    latestTime: string | null
+    isUSMarketOpen: boolean
 }
 
 export type Search = (query: string) => void;
 
 export type ChangeTicker = (stock: Stock) => void;
-
 
 const socket = socketService.get();
 
@@ -79,27 +78,23 @@ export const Search: FC<{}> = () => {
     const {
         tags,
         primaryExchange,
-        isUSMarketOpen,
-        latestTime,
+        isUSMarketOpen
     }: Selectors = useSelector(({
         companyOverview: { tags },
         keyStats: {
             primaryExchange,
-            isUSMarketOpen,
-            latestTime
+            isUSMarketOpen
         }
     }: AppState) => {
         return {
             tags,
             primaryExchange,
-            isUSMarketOpen,
-            latestTime,
+            isUSMarketOpen
         }
     });
 
-    const price: PriceSingleDataPoint = useSelector(({ prices, search }: AppState) => {
-        return prices.find(({ ticker }) => ticker === search) || prices[0];
-    })
+    const price: PriceSingleDataPoint = useSelector(currentPrice);
+    const { latestUpdate } = price;
 
     const search: Search = useCallback((query: string) => dispatch(updateTicker(query)), [dispatch]);
 
@@ -135,7 +130,7 @@ export const Search: FC<{}> = () => {
                 {
                     query.length > 0 && 
                     <StockList 
-                        socket={socket}
+                        changeTicker={changeTicker}
                         stockList={stockList} 
                     /> 
                 }
@@ -149,8 +144,7 @@ export const Search: FC<{}> = () => {
                             tags={tags} 
                         />
                         <DateTime 
-                            latestTime={latestTime} 
-                            tags={tags} 
+                            latestUpdate={latestUpdate} 
                             isUSMarketOpen={isUSMarketOpen} 
                         />
                     </>

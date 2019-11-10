@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import styled from '@emotion/styled'
 import { Stock } from '../'
+import { ChangeTicker } from '../';
 
 const StockListLayoutContainer = styled.div`
     position: absolute;
@@ -55,19 +56,19 @@ const TdEx = styled.span`
 
 
 type StockListProps = {
-    stockList: Stock[],
-    socket: SocketIOClient.Socket,
+    changeTicker: ChangeTicker,
+    stockList: Stock[]
 }
 
-export const StockList = memo<StockListProps>(({ 
-    stockList,
-    socket
+export const StockList = memo<StockListProps>(({
+    changeTicker,
+    stockList
     }) => {
 
     const renderSymbols = (stock: Stock) => {
         const { name, symbol, exchange } = stock;
         return (
-                <TR key={name} onClick={() => socket.emit('isValid', name)}>
+                <TR key={name} onClick={() => changeTicker(stock)}>
                     <TdSymbol>{symbol}</TdSymbol>
                     <TdName>{name} <TdEx>{exchange}</TdEx></TdName>
                 </TR>

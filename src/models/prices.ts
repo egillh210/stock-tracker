@@ -3,6 +3,7 @@ export interface PriceSingleDataPoint {
     latestPrice: number,
     change: number,
     changePercent: number,
+    latestUpdate: number,
     error: boolean,
 }
 
