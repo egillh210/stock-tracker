@@ -78,13 +78,13 @@ export const Search: FC<{}> = () => {
     const {
         tags,
         primaryExchange,
-        isUSMarketOpen
+        isUSMarketOpen,
     }: Selectors = useSelector(({
         companyOverview: { tags },
         keyStats: {
             primaryExchange,
             isUSMarketOpen
-        }
+        },
     }: AppState) => {
         return {
             tags,
@@ -126,7 +126,7 @@ export const Search: FC<{}> = () => {
                     selectedStock={selectedStock} 
                     socket={socket} 
                 />
-                <TickerCard {...price} />
+                {<TickerCard {...price} />}
                 {
                     query.length > 0 && 
                     <StockList 

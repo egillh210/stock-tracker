@@ -45,7 +45,7 @@ const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string =
             }
 
             if (type === UPDATE_CHART_RANGE) {
-                const { search: ticker } = getState();
+                const { ticker } = getState();
                 socket.emit('chart', [ticker, payload])
             }
 

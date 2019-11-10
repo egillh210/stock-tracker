@@ -6,7 +6,7 @@ import { Prices } from './prices'
 import { Error } from './errors';
 
 export interface AppState {
-    search: string,
+    ticker: string,
     companyOverview: CompanyOverview,
     keyStats: KeyStats,
     charts: Charts,
