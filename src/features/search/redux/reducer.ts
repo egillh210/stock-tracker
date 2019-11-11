@@ -1,7 +1,7 @@
 import { UpdateTickerAction, UPDATE_TICKER } from './actions';
 import { Reducer } from 'redux';
 
-export const search: Reducer<string, UpdateTickerAction> = (
+export const ticker: Reducer<string, UpdateTickerAction> = (
     state = 'aapl', 
     action
 ) => {

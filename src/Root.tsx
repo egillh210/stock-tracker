@@ -28,8 +28,6 @@ const RootContainer = styled.div`
     font-size: 1rem;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    min-height: 100%;
     align-items: center;
     * {
         font-family: 'Lato', sans-serif;
@@ -42,6 +40,7 @@ const AppContainer = styled.div`
     flex-direction: column;
     margin-left: 5%;
     margin-right: 5%;
+    margin-bottom: 60px;
     max-width: 1368px;
 `
 

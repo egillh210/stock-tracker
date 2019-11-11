@@ -1,5 +1,7 @@
-import React, { Dispatch, SetStateAction, RefObject, memo } from 'react'
+import React, { memo, FC, MouseEvent, MouseEventHandler } from 'react'
 import styled from '@emotion/styled'
+import { Stock } from '../'
+import { ChangeTicker } from '../';
 
 const StockListLayoutContainer = styled.div`
     position: absolute;
@@ -30,7 +32,7 @@ const TdName = styled.td`
     padding-top: 8px;
     padding-bottom: 8px;
     position: absolute;
-    left: 60px;
+    left: 80px;
 `
 
 const TR = styled.tr`
@@ -52,53 +54,48 @@ const TdEx = styled.span`
     margin-left: 10px;
 `
 
-type _Stock = {
-    name: string,
-    symbol: string,
-    exchange?: string
-}
-
-type StockListItem = {
-    symbol: string,
-    name: string
-}
 
 type StockListProps = {
-    setQuery: Dispatch<SetStateAction<string>>,
-    inputSelect: RefObject<HTMLInputElement>,
-    search: (query: string) => void,
-    setSelectedStock: Dispatch<SetStateAction<string[]>>,
-    setStockList: Dispatch<SetStateAction<StockListItem[]>>,
-    dropSelect: RefObject<HTMLDivElement>,
-    stockList: StockListItem[],
+    changeTicker: ChangeTicker,
+    stockList: Stock[]
 }
 
-export const StockList = memo<StockListProps>(({setQuery, inputSelect, search, setStockList, setSelectedStock, dropSelect, stockList}) => {
+type StockProps = {
+    stock: Stock,
+    changeTicker: ChangeTicker,
+}
 
-    const onStockClick = (stock: _Stock) => {
-        const stockSymbol = stock.symbol
-        const stockName = stock.name
-        setQuery(`${stockName} (${stockSymbol})`)
-        inputSelect.current!.blur()
-        search(stockSymbol)
-        setStockList([])
-        setSelectedStock([`${stock.name}`, `(${stock.symbol})`])
-    }
+export const StockListItem: FC<StockProps> = ({ stock, changeTicker }) => {
 
-    const renderSymbols = (stock: _Stock) => {
-        return (
-                <TR key={stock.name} onClick={() => onStockClick(stock)}>
-                    <TdSymbol>{stock.symbol}</TdSymbol>
-                    <TdName>{stock.name} <TdEx>{stock.exchange}</TdEx></TdName>
-                </TR>
-        )
+    const { name, symbol, exchange } = stock;
+
+    const handleClick: MouseEventHandler<HTMLTableRowElement> = (event: MouseEvent<HTMLTableRowElement>) => {
+        event.preventDefault();
+        changeTicker(stock);
     }
 
     return (
-        <StockListLayoutContainer ref={dropSelect} tabIndex={-1}>
+        <TR onClick={handleClick}>
+            <TdSymbol>{symbol}</TdSymbol>
+            <TdName>
+                {name}
+                <TdEx>{exchange}</TdEx>
+            </TdName>
+        </TR>
+    )
+
+}
+
+export const StockList = memo<StockListProps>(({
+    changeTicker,
+    stockList
+    }) => {
+
+    return (
+        <StockListLayoutContainer tabIndex={-1}>
             <table style={{width: '100%'}}>
                 <tbody style={{fontSize: '18px'}}>
-                    {stockList.map( stock => renderSymbols(stock))}
+                    {stockList.map(({ name, ...rest}: Stock) => <StockListItem key={name} stock={{ ...rest, name }} changeTicker={changeTicker} />)}
                 </tbody> 
             </table>               
         </StockListLayoutContainer>

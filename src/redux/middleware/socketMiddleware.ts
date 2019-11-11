@@ -4,11 +4,10 @@ import { CompanyOverview } from '../../features/companyOverview/models/companyOv
 import { News } from '../../features/news/models/news'
 import { KeyStats } from '../../features/keystats/models/keyStats'
 import { ChartSingleDataPoint } from '../../features/charts/models'
-import { Error } from '../../models/errors'
 import { 
     updatePricesData,
     updateChartData,
-    updateChartRange, UPDATE_CHART_RANGE,
+    UPDATE_CHART_RANGE,
     resetState,
     updateCompany,
     updateKeyStats,
@@ -39,15 +38,14 @@ const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string =
 
             if (type === UPDATE_TICKER) {
                 const { favorites, charts: { range } } = getState();
-                const tickerPlusFavorites = Array.from(new Set([...favorites, payload]));
                 dispatch(resetState(undefined))
-                socket.emit('prices', tickerPlusFavorites);
+                socket.emit('prices', Array.from(new Set([...favorites, payload])));
                 socket.emit('ticker', payload);
                 socket.emit('chart', [payload, range])
             }
 
             if (type === UPDATE_CHART_RANGE) {
-                const { search: ticker } = getState();
+                const { ticker } = getState();
                 socket.emit('chart', [ticker, payload])
             }
 

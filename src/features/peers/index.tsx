@@ -1,9 +1,12 @@
 import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../models/appState';
 import { Title } from '../../Root'
 import styled from '@emotion/styled'
-import { Loader } from '../loader/Loader'
+import { socketService } from '../../services/socket-service';
+const { div, span } = styled;
 
-const PeersLayoutContainer = styled.div`
+const PeersLayoutContainer = div`
     max-height: 30%;
     @media(max-width: 1000px) {
         margin-bottom: 100px;
@@ -13,14 +16,14 @@ const PeersLayoutContainer = styled.div`
     }
 `
 
-const ContentContainer = styled.div`
+const ContentContainer = div`
     margin-top: 10.2px;
     display: flex;
     flex-flow: row wrap;
     color: #beccdc;
 `
 
-const Peer = styled.span`
+const Peer = span`
     margin-right: 18px;
     font-size: 14px;
     &:hover {
@@ -29,35 +32,32 @@ const Peer = styled.span`
     }
 `
 
-type PeersProps = {
-    peers: string[],
-}
-
-type ErrorLoading = {
-    errorPeers: {
-        message: string
-    },
-    isFetchingPeers: boolean,
-}
-
 const HARD_PEERS = [
-    'MSFT',' NOK', 'IBM'
+    'MSFT','AMZN', 'IBM'
 ]
+
+const socket = socketService.get();
 
 export const Peers: FC<{}> = () => {
 
-    const renderPeer = (peer: string) => {
-        return <Peer key={peer} >{peer}</Peer>
+    const peers: string[] = useSelector(
+        ({ peers: [stateIsNotEmpty] }: AppState) => stateIsNotEmpty ? peers : HARD_PEERS);
+
+    const handleClick = (peer: string) => {
+        socket.emit('isValid', peer);
     }
 
     return (
             <PeersLayoutContainer>
                 <Title>TOP PEERS</Title>
-                {
-                    !false
-                    ? <ContentContainer>{HARD_PEERS.map( peer => renderPeer(peer))}</ContentContainer>
-                    : <Loader className='flex-direction: column; margin-top: 30px; @media(max-width: 750px) { margin-top: 50px; margin-bottom: 50px;}' size={50} seperation={2} speed={1.4} /> 
-                }
+                    <ContentContainer>
+                    {
+                        peers.map(peer => 
+                            <Peer key={peer} onClick={() => handleClick(peer)}>
+                                {peer}
+                            </Peer>)
+                    }
+                    </ContentContainer>
             </PeersLayoutContainer>
     );
 }

@@ -1,5 +1,29 @@
 import React, { memo } from 'react'
 import styled from '@emotion/styled'
+import { PriceSingleDataPoint } from '../../../models/prices';
+
+
+type ColorProps = {
+    color: string
+}
+
+const TickerPriceContainer = styled.div`
+    margin-right: 25px;
+    display: flex;
+    flex: 0 0 1;
+    font-size: 14px;
+`
+
+const Ticker = styled.div`
+    margin-right: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+`
 
 const PriceLayoutContainer = styled.div`
     font-size: inherit;
@@ -18,14 +42,9 @@ const PriceLayoutContainer = styled.div`
     };
 `
 
-type SpanProps = {
-    color: string
-}
-
-const PriceChange = styled.span<SpanProps>`
+const PriceChange = styled.span`
     display: flex;
-    margin-right: 2px;
-    color: ${(props: SpanProps) => props.color};
+    margin-right: 10px;
 `
 
 const PriceIcon = styled.span`
@@ -46,61 +65,41 @@ const DollarIcon = styled.div`
     margin-top: 1px;
 `
 
-const ChangeLayoutContainer = styled.div`
+const ChangeLayoutContainer = styled.div<ColorProps>`
+    color: ${(props: ColorProps) => props.color};
     display: flex;
 `
 
-type TickerCardPropTypes = {
-    latestPrice: number | undefined,
-    change: number | null,
-    changePercent: number | null,
-    error: boolean,
-}
 
-export const TickerPrice = memo<TickerCardPropTypes>(({ latestPrice, change, changePercent, error }) => {
+export const TickerPrice = memo<PriceSingleDataPoint>(({
+    ticker,
+    latestPrice, 
+    change, 
+    changePercent, 
+    error 
+    }) => {
+
+    const isPositive = change >= 0;
 
     return (
-        <PriceLayoutContainer>
-            {
-                latestPrice 
-                ? <PriceContainer>
+        <TickerPriceContainer>
+            <Ticker>{ticker}</Ticker>
+            <PriceLayoutContainer>
+                <PriceContainer>
                     <DollarIcon>$</DollarIcon>
                     {latestPrice.toFixed(2)}
-                  </PriceContainer> 
-                : null
-            }
-            <ChangeLayoutContainer>
-                {
-                    !change ? null 
-                    : change > 0 
-                    ? <PriceChange color='#91e4a5'>
-                        <PriceIcon>&#129121;</PriceIcon>
+                </PriceContainer> 
+                <ChangeLayoutContainer color={isPositive ? '#91e4a5' : '#e95656'} >
+                    <PriceChange>
+                        {isPositive ?<PriceIcon>&#129121;</PriceIcon> : <PriceIcon>&#129123;</PriceIcon>}
                         {Math.abs(change).toFixed(2)}
-                      </PriceChange> 
-                    : <PriceChange color='#e95656'>
-                        <PriceIcon>&#129123;</PriceIcon>
-                        {Math.abs(change).toFixed(2)}
-                      </PriceChange>
-                } 
-                {
-                    !change ? null 
-                    : change > 0 
-                    ? <PriceChange color='#91e4a5'>|</PriceChange> 
-                    : <PriceChange color='#e95656'>|</PriceChange> 
-                }
-                {
-                    !changePercent ? null 
-                    : changePercent > 0 
-                    ? <PriceChange color='#91e4a5'>
-                        {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
+                    </PriceChange>
+                    <PriceChange>
+                        {(Math.abs(changePercent) * 100).toFixed(2)}
                         <PriceIcon>%</PriceIcon>
-                      </PriceChange> 
-                    : <PriceChange color='#e95656'>
-                        {Math.abs(Math.round((changePercent * 100) * 100) / 100).toFixed(2)}
-                        <PriceIcon>%</PriceIcon>
-                      </PriceChange>
-                }
-            </ChangeLayoutContainer>
-        </PriceLayoutContainer>
+                    </PriceChange>
+                </ChangeLayoutContainer>
+            </PriceLayoutContainer>
+        </TickerPriceContainer>
     )
 })

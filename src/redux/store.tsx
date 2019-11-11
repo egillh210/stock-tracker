@@ -8,12 +8,12 @@ import { companyOverview } from '../features/companyOverview/redux/reducer';
 import { keyStats } from '../features/keystats/redux/reducer';
 import { news } from '../features/news/redux/reducer';
 import { peers } from '../features/peers/redux/reducer';
-import { search } from '../features/search/redux/reducer';
+import { ticker } from '../features/search/redux/reducer';
 import { favorites } from '../features/footer/redux/reducer';
 
 
 const rootReducer = combineReducers({
-    search,
+    ticker,
     companyOverview,
     keyStats,
     news,

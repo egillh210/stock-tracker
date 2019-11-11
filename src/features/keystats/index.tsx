@@ -11,21 +11,34 @@ const KeyStatsLayoutContainer = styled.div`
     flex: 0 1 63%;
 `
 
-
 export const KeyStatsComponent: FC<{}> = () => {
 
-    const { ...keystatsProps }: KeyStats = useSelector(({ keyStats }: AppState) => keyStats)
+    const keystats: KeyStats = useSelector(({ keyStats }: AppState) => keyStats);
 
-    const nullValues = Object.values(keystatsProps).every((item: number) => !item);
-    
-    return (    
+    const nullValues = Object.values(keystats).every((item: number) => !item);
+
+    return (
         <KeyStatsLayoutContainer>
             <Title>KEY STATS</Title>
             {
-                !nullValues 
-                ? <StatsTable {...keystatsProps} />
-                : <Loader className='flex-direction: column; margin-top: 100px; @media(max-width: 750px) {margin-top: 50px; margin-bottom: 50px}' size={50} seperation={2} speed={1.4} /> 
-            } 
+                !nullValues ? 
+                <StatsTable {...keystats} /> : 
+                <Loader 
+                    className={`
+                        flex-direction: 
+                        column; 
+                        margin-top: 100px; 
+                        @media(max-width: 750px) 
+                        {
+                            margin-top: 50px; 
+                            margin-bottom: 50px
+                        }
+                    `}
+                    size={50}
+                    seperation={2}
+                    speed={1.4}
+                />
+            }
         </KeyStatsLayoutContainer>
     )
 }

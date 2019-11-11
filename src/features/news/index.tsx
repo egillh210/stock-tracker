@@ -43,7 +43,7 @@ export const NewsComponent: FC<{}> = () => {
 
     const Loading = <Loader className='margin-top: 200px; @media(max-width: 750px) {margin-top: 50px; margin-bottom: 50px;};' size={50} seperation={2} speed={1.4} />
 
-    const News = news.length > 0 ? news.map((article: Article) => <ArticleComponent key={article.headline} {...article}/>) : Loading;
+    const NewsArray = news.length > 0 ? news.map((article: Article) => <ArticleComponent key={article.headline} {...article}/>) : Loading;
 
     const NewsError = news.length > 0 ? (
         <div style={{color: 'red', marginBottom: '1rem'}}>Connection to server lost.</div>
@@ -56,7 +56,7 @@ export const NewsComponent: FC<{}> = () => {
             {
                 error && error.news
                 ? NewsError 
-                : <ArticleLayoutContainer>{News}</ArticleLayoutContainer>}
+                : <ArticleLayoutContainer>{NewsArray}</ArticleLayoutContainer>}
         </NewsLayoutContainer>
 
     )

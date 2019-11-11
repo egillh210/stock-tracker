@@ -16,9 +16,7 @@ const keyStatsInitialState: KeyStats = {
     dividendYield: null,
     actualEPS: null,
     primaryExchange: null,
-    latestTime: null,
     isUSMarketOpen: false,
-    isFetchingQuote: false,
 }
 
 export const keyStats = (
@@ -28,7 +26,7 @@ export const keyStats = (
     const { type, payload } = action
     switch (type) {
         case UPDATE_KEY_STATS: {
-            return ({ ...state, ...payload });
+            return payload;
         }
         case RESET_APP_STATE: {
             return keyStatsInitialState

@@ -12,7 +12,5 @@ export interface KeyStats {
     dividendYield: number | null,
     actualEPS: number | null,
     primaryExchange: string | null,
-    latestTime: string | null,
     isUSMarketOpen: boolean,
-    isFetchingQuote: boolean,
 }

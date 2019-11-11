@@ -21,35 +21,36 @@ const MarketStatus = styled.span`
     font-size: 14px;
     font-weight: 400;
     display: flex;
-    margin-left: 25px;
+    margin-left: 15px;
     position: relative;
 `
 
 const MarketIcon = styled.div(props => ({
-    color: props.color ? 'yellow' : 'gray',
-    fontSize: '15px',
-    position: 'absolute',
-    top: '-2px',
-    left: '-15px',
+    color: props.color,
+    paddingRight: '5px'
 }))
 
 type DateProps = {
-    latestTime: string | null,
-    isUSMarketOpen: boolean | null,
-    tags: string[],
+    latestUpdate: number,
+    isUSMarketOpen: boolean | null
 }
 
-const formatDate = (date: any) => new Date(date);
-    const EST = formatDate(moment()).toLocaleString("en-US", {
-        timeZone: "America/New_York"
-      });
-    const formattedEST = moment(EST).format("lll");
+export const DateTime = memo<DateProps>(({ 
+    latestUpdate, 
+    isUSMarketOpen
+    }) => {
 
-export const DateTime = memo<DateProps>(({latestTime, isUSMarketOpen, tags}) => {
+    const formattedDate = moment(new Date(latestUpdate)).format("lll")
+
+    const color = isUSMarketOpen ? 'yellow' : 'gray';
+    
     return (
         <DateLayoutContainer>
-            {latestTime ? <Time>Real-Time Price as of {formattedEST} EST</Time> : null}
-            {tags.length < 1 ? null : isUSMarketOpen ? <MarketStatus><MarketIcon color='yellow'>☀</MarketIcon>Market Open</MarketStatus> : <MarketStatus><MarketIcon>☽</MarketIcon> Market Closed</MarketStatus>}
+            {latestUpdate && <Time>Real-Time Price as of {formattedDate}</Time>}
+            <MarketStatus>
+                <MarketIcon color={color}>{isUSMarketOpen ? '☀' : '☽'}</MarketIcon>
+                {isUSMarketOpen ? 'Market Open' : 'Market Closed'}
+            </MarketStatus>
         </DateLayoutContainer>
     )
 })
