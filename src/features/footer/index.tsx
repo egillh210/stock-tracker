@@ -1,9 +1,12 @@
 import React, { FC } from 'react';
+import { PriceSingleDataPoint } from '../../models/prices';
+import { AppState } from '../../models/appState';
+import USMarketsMockData from './USMarketsMockData.json';
+
+import { FooterTickerCard } from './components';
+
 import styled from '@emotion/styled'
 import { useSelector } from 'react-redux';
-import { PriceSingleDataPoint, AppState } from '../../models';
-import USMarketsMockData from './USMarketsMockData.json';
-import { FooterTickerCard } from './components';
 
 const FooterLayoutContainer = styled.div`
     position: fixed;
@@ -74,7 +77,7 @@ const Seperator = styled.div`
     }
 `
 
-export const Footer: FC = () => {
+export const Footer: FC<{}> = () => {
 
     const prices: PriceSingleDataPoint[] = useSelector((store: AppState) => store.prices);
     const favorites: string[] = useSelector((store: AppState) => store.favorites);
