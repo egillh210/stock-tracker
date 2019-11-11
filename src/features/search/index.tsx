@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useRef, FC, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { PriceSingleDataPoint } from '../../models/prices';
+import { AppState } from '../../models/appState';
+import { TickerCard } from './components/tickerCard';
 import styled from '@emotion/styled'
-import { PriceSingleDataPoint, AppState } from '../../models';
-import { TickerCard, SearchBar, StockList, DateTime, Tags } from './components'
 import { socketService } from '../../services/socket-service'
+import { SearchBar } from'./components/search-bar'
+import { StockList } from './components/stockList'
+import { DateTime } from './components/date'
+import { Tags } from './components/tags'
 import { updateTicker } from './redux/actions';
 
 const SearchLayoutContainer = styled.div`
@@ -52,7 +57,7 @@ type StockListItem = {
 
 const socket = socketService.get();
 
-export const Search: FC = () => {
+export const Search: FC<{}> = () => {
 
     const dispatch = useDispatch();
 

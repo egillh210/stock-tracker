@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import styled from '@emotion/styled'
 import { 
     Search,
     CompanyOverviewComponent as CompanyOverview,
@@ -11,6 +10,7 @@ import {
     Footer
 } from './features';
 
+import styled from '@emotion/styled'
 
 export const Title =styled.div`
     border-bottom: 2px solid #7fb3ff;
@@ -103,7 +103,7 @@ const StatsCompanyLayout = styled.div`
     };
 `
 
-const Root: FC = () => {
+const Root: FC<{}> = () => {
 
     return (
         <RootContainer>

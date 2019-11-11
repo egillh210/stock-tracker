@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import styled from '@emotion/styled'
 import logo from './logo.png'
+import styled from '@emotion/styled'
 
 const HeaderLayoutContainer = styled.div`
     flex: 1 0 auto;

@@ -2,14 +2,14 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import socketMiddleware from '../redux/middleware/socketMiddleware';
 import { socketService } from '../services/socket-service';
 
-import { prices } from '../redux/reducers';
-import { charts } from '../features/charts/redux';
-import { companyOverview } from '../features/companyOverview/redux';
-import { keyStats } from '../features/keystats/redux';
-import { news } from '../features/news/redux';
-import { peers } from '../features/peers/redux';
-import { favorites } from '../features/footer/redux';
-import { search } from '../features/search/redux';
+import { prices } from '../redux/reducers/price';
+import { charts } from '../features/charts/redux/reducer';
+import { companyOverview } from '../features/companyOverview/redux/reducer';
+import { keyStats } from '../features/keystats/redux/reducer';
+import { news } from '../features/news/redux/reducer';
+import { peers } from '../features/peers/redux/reducer';
+import { search } from '../features/search/redux/reducer';
+import { favorites } from '../features/footer/redux/reducer';
 
 
 const rootReducer = combineReducers({

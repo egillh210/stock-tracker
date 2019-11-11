@@ -1,4 +1,6 @@
 import React, { memo } from 'react'
+import { Range } from '../models/range'
+import { ChartSingleDataPoint } from '../models/charts'
 import { 
     XAxis, 
     YAxis, 
@@ -10,7 +12,6 @@ import {
     ReferenceLine,
     Label,
 } from 'recharts';
-import { ChartSingleDataPoint, Range } from '../models'
 
 type GraphProps = {
     prices: ChartSingleDataPoint[],

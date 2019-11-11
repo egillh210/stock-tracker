@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import styled from '@emotion/styled'
 import { Title } from '../../Root'
-import { Loader } from '../loader'
+import styled from '@emotion/styled'
+import { Loader } from '../loader/Loader'
 
 const PeersLayoutContainer = styled.div`
     max-height: 30%;
@@ -44,7 +44,7 @@ const HARD_PEERS = [
     'MSFT',' NOK', 'IBM'
 ]
 
-export const Peers: FC = () => {
+export const Peers: FC<{}> = () => {
 
     const renderPeer = (peer: string) => {
         return <Peer key={peer} >{peer}</Peer>

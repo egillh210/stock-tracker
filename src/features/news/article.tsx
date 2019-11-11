@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
+import { Article } from './models/news';
 import moment from 'moment';
 import styled from '@emotion/styled'
-import { Article } from './models/news';
 
 const ArticleItemContainer = styled.div`
     font-weight: 400;
