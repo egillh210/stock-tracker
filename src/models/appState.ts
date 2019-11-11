@@ -5,7 +5,7 @@ import { News } from '../features/news/models/news'
 import { Prices } from './prices'
 import { Error } from './errors';
 
-export interface AppState {
+export type AppState = {
     ticker: string,
     companyOverview: CompanyOverview,
     keyStats: KeyStats,

@@ -120,13 +120,13 @@ export const Search: FC<{}> = () => {
     return (
         <SearchLayoutContainer>
             <SearchRowLayoutContainer>
-                <SearchBar 
+                <SearchBar
                     setQuery={setQuery} 
                     query={query} 
                     selectedStock={selectedStock} 
                     socket={socket} 
                 />
-                {<TickerCard {...price} />}
+                <TickerCard {...price} />
                 {
                     query.length > 0 && 
                     <StockList 

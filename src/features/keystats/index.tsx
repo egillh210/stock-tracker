@@ -13,16 +13,16 @@ const KeyStatsLayoutContainer = styled.div`
 
 export const KeyStatsComponent: FC<{}> = () => {
 
-    const { ...keystatsProps }: KeyStats = useSelector(({ keyStats }: AppState) => keyStats);
+    const keystats: KeyStats = useSelector(({ keyStats }: AppState) => keyStats);
 
-    const nullValues = Object.values(keystatsProps).every((item: number) => !item);
+    const nullValues = Object.values(keystats).every((item: number) => !item);
 
     return (
         <KeyStatsLayoutContainer>
             <Title>KEY STATS</Title>
             {
                 !nullValues ? 
-                <StatsTable {...keystatsProps} /> : 
+                <StatsTable {...keystats} /> : 
                 <Loader 
                     className={`
                         flex-direction: 

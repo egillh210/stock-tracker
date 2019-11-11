@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, FC, MouseEvent, MouseEventHandler } from 'react'
 import styled from '@emotion/styled'
 import { Stock } from '../'
 import { ChangeTicker } from '../';
@@ -60,26 +60,42 @@ type StockListProps = {
     stockList: Stock[]
 }
 
+type StockProps = {
+    stock: Stock,
+    changeTicker: ChangeTicker,
+}
+
+export const StockListItem: FC<StockProps> = ({ stock, changeTicker }) => {
+
+    const { name, symbol, exchange } = stock;
+
+    const handleClick: MouseEventHandler<HTMLTableRowElement> = (event: MouseEvent<HTMLTableRowElement>) => {
+        event.preventDefault();
+        changeTicker(stock);
+    }
+
+    return (
+        <TR onClick={handleClick}>
+            <TdSymbol>{symbol}</TdSymbol>
+            <TdName>
+                {name}
+                <TdEx>{exchange}</TdEx>
+            </TdName>
+        </TR>
+    )
+
+}
+
 export const StockList = memo<StockListProps>(({
     changeTicker,
     stockList
     }) => {
 
-    const renderSymbols = (stock: Stock) => {
-        const { name, symbol, exchange } = stock;
-        return (
-                <TR key={name} onClick={() => changeTicker(stock)}>
-                    <TdSymbol>{symbol}</TdSymbol>
-                    <TdName>{name} <TdEx>{exchange}</TdEx></TdName>
-                </TR>
-        )
-    }
-
     return (
         <StockListLayoutContainer tabIndex={-1}>
             <table style={{width: '100%'}}>
                 <tbody style={{fontSize: '18px'}}>
-                    {stockList.map(stock => renderSymbols(stock))}
+                    {stockList.map(({ name, ...rest}: Stock) => <StockListItem key={name} stock={{ ...rest, name }} changeTicker={changeTicker} />)}
                 </tbody> 
             </table>               
         </StockListLayoutContainer>
