@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { CompanyOverview, AppState } from 'models'
 import styled from '@emotion/styled'
+import { CompanyOverview, AppState } from 'models'
 import { Title } from 'features/Root'
 import { Loader } from 'features/loader'
+const { div, a } = styled;
 
-const CompanyOverviewContainer = styled.div`
+const CompanyOverviewContainer = div`
     max-height: 400px;
     margin-bottom: 25px;
     @media(max-width: 750px) {
@@ -14,17 +15,17 @@ const CompanyOverviewContainer = styled.div`
     }
 `
 
-const Name = styled.div`
+const Name = div`
     margin-top: 10px;
     font-size: 24px;
 `
 
-const Website = styled.div`
+const Website = div`
     margin-top: 8px;
     margin-bottom: 8px;
 `
 
-const Link = styled.a`
+const Link = a`
     text-decoration: none;
     font-size: 14px;
     color: #beccdc;
@@ -36,12 +37,12 @@ const Link = styled.a`
     }
 `
 
-const Description = styled.div`
+const Description = div`
     font-size: 16px;
     max-height: 140px;
 `
 
-const OverflowContainer = styled.div`
+const OverflowContainer = div`
     overflow: auto;
     max-height: 200px;
 `
