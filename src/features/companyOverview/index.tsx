@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { CompanyOverview, AppState } from 'models'
 import styled from '@emotion/styled'
-import { Title } from 'Root'
+import { Title } from 'features/Root'
 import { Loader } from 'features/loader'
 
 const CompanyOverviewContainer = styled.div`

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled'
 import { KeyStats, AppState } from 'models';
-import { Title } from 'Root'
+import { Title } from 'features/Root'
 import { StatsTable } from 'features/keystats/components'
 import { Loader } from 'features/loader'
 const { div } = styled;

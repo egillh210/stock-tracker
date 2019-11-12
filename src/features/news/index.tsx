@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled'
 import { Article, News, AppState } from 'models'
-import { Title } from 'Root'
+import { Title } from 'features/Root'
 import { ArticleComponent } from 'features/news/article';
 import { Loader } from 'features/loader'
 const { div } = styled;

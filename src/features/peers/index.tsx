@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from '@emotion/styled'
 import { useSelector } from 'react-redux';
 import { AppState } from 'models';
-import { Title } from 'Root'
+import { Title } from 'features/Root'
 import { socketService } from 'services';
 const { div, span } = styled;
 

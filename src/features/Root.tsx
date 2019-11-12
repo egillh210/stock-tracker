@@ -8,7 +8,7 @@ import {
     Chart,
     Header,
     Footer
-} from './features';
+} from 'features';
 
 import styled from '@emotion/styled'
 
