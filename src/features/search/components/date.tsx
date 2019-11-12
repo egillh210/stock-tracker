@@ -1,8 +1,9 @@
 import React, { memo } from 'react'
 import styled from '@emotion/styled'
 import moment from 'moment'
+const { div, span } = styled;
 
-const DateLayoutContainer = styled.div`
+const DateLayoutContainer = div`
     font-size: 14px;
     display: flex;
     font-weight: 300;
@@ -10,14 +11,14 @@ const DateLayoutContainer = styled.div`
     margin-left: 5px;
 `
 
-const Time = styled.span`
+const Time = span`
     color: rgba(255, 255, 255, 0.8);
     @media(max-width: 750px) {
         display: none;
     }
 `
 
-const MarketStatus = styled.span`
+const MarketStatus = span`
     font-size: 14px;
     font-weight: 400;
     display: flex;
@@ -25,7 +26,7 @@ const MarketStatus = styled.span`
     position: relative;
 `
 
-const MarketIcon = styled.div(props => ({
+const MarketIcon = div(props => ({
     color: props.color,
     paddingRight: '5px'
 }))
