@@ -23,6 +23,11 @@ export const Title =styled.div`
 `
 
 const RootContainer = styled.div`
+    height: 100vh;
+    min-height: 100vh;
+    overflow-y: auto;
+    background: no-repeat;
+    background-image: linear-gradient(127deg, #012861, #021738 69%,#021025);
     font-family: sans-serif;
     color: white;
     font-size: 1rem;
