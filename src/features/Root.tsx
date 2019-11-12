@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import React, { FC } from 'react'
+import styled from '@emotion/styled'
 import { 
     SearchComponent as Search,
     CompanyOverviewComponent as CompanyOverview,
@@ -9,10 +10,9 @@ import {
     Header,
     Footer
 } from 'features';
+const { div } = styled;
 
-import styled from '@emotion/styled'
-
-export const Title =styled.div`
+export const Title =div`
     border-bottom: 2px solid #7fb3ff;
     width: 100%;
     padding-bottom: 2px;
@@ -22,7 +22,7 @@ export const Title =styled.div`
     font-size: 16px;
 `
 
-const RootContainer = styled.div`
+const RootContainer = div`
     height: 100vh;
     min-height: 100vh;
     overflow-y: auto;
@@ -39,7 +39,7 @@ const RootContainer = styled.div`
     };
 `
 
-const AppContainer = styled.div`
+const AppContainer = div`
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
@@ -49,7 +49,7 @@ const AppContainer = styled.div`
     max-width: 1368px;
 `
 
-const CompanyContainer = styled.div`
+const CompanyContainer = div`
     display: flex;
     flex: 0 1 37%;
     margin-left: 53px;
@@ -62,7 +62,7 @@ const CompanyContainer = styled.div`
     };
 `
 
-const ChartNewsLayout = styled.div`
+const ChartNewsLayout = div`
     display: flex;
     flex: 1 0 auto;
     margin-bottom: -120px;
@@ -89,7 +89,7 @@ const ChartNewsLayout = styled.div`
     };
 `
 
-const StatsCompanyLayout = styled.div`
+const StatsCompanyLayout = div`
     display: flex;
     flex: 1 0 auto;
     @media(max-width: 750px) {
