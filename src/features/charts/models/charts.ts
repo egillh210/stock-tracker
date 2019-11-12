@@ -1,4 +1,4 @@
-import { Range } from './range'
+import { Range } from 'features/charts/models'
 export interface ChartSingleDataPoint {
     open: number,
     close: number,

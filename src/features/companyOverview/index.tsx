@@ -1,10 +1,9 @@
-import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { CompanyOverview } from './models'
-import { AppState } from '../../models/appState';
+import React, { FC } from 'react'
+import { useSelector } from 'react-redux'
+import { CompanyOverview, AppState } from 'models'
 import styled from '@emotion/styled'
-import { Title } from '../../Root'
-import { Loader } from '../loader/Loader'
+import { Title } from 'Root'
+import { Loader } from 'features/loader'
 
 const CompanyOverviewContainer = styled.div`
     max-height: 400px;
@@ -68,13 +67,13 @@ export const Company: FC<CompanyOverview> = ({ companyName, symbol, website, des
 
 export const CompanyOverviewComponent: FC<{}> = () => {
 
-    const { ...companyProps }: CompanyOverview = useSelector((store: AppState) => store.companyOverview)
+    const company: CompanyOverview = useSelector(({ companyOverview}: AppState) => companyOverview)
 
     return (
         <CompanyOverviewContainer>
             <Title>COMPANY OVERVIEW</Title>
-            {companyProps.symbol
-                ? <Company {...companyProps} />
+            {company.symbol
+                ? <Company {...company} />
                 : <Loader className='margin-top: 50px; margin-bottom: 50px;' size={50} seperation={2} speed={1.4} />
             }
         </CompanyOverviewContainer>

@@ -1,9 +1,9 @@
-import { Charts } from '../models'
+import { Charts } from 'features/charts/models'
 import {
     UpdateChartDataAction, UPDATE_CHART_DATA, 
     UpdateChartRangeAction, UPDATE_CHART_RANGE,
-} from './actions'
-import { RESET_APP_STATE } from '../../../redux/actions/resetApp'
+} from 'features/charts/redux'
+import { RESET_APP_STATE } from 'redux/actions/resetApp'
 
 const chartsIntitialState: Charts = {
     range: '1m',

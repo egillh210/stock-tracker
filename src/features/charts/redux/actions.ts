@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions'
-import { ChartSingleDataPoint, Range } from '../models'
+import { ChartSingleDataPoint, Range } from 'features/charts/models'
 
 export const UPDATE_CHART_RANGE = 'UPDATE_CHART_RANGE';
 export const updateChartRange = createAction<Range>(UPDATE_CHART_RANGE)

@@ -25,7 +25,7 @@ const socketMiddleware = (socket: SocketIOClient.Socket, defaultTicker: string =
         socket.on('company', (company: CompanyOverview) => dispatch(updateCompany(company)));
         socket.on('news', (news: News) => dispatch(updateNews(news)));
         socket.on('keystats', (keystats: KeyStats) => dispatch(updateKeyStats(keystats)));
-        socket.on('error', (error: string) => dispatch(errorAction(error)));
+        socket.on('errors', (error: string) => dispatch(errorAction(error)));
         socket.on('chart', (chartData: ChartSingleDataPoint[]) => dispatch(updateChartData(chartData)))
         
         const { favorites, charts: { range } } = getState();

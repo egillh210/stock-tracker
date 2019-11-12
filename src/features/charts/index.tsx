@@ -1,13 +1,16 @@
 import React, { FC, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
-import { Loader } from '../loader/Loader';
-import { Graph, RangeButtons } from'./components'
-import { ChartSingleDataPoint, Range } from './models';
-import { updateChartRange } from './redux';
-import { AppState } from '../../models/appState';
-import { currentPrice } from '../../redux/selectors/prices';
-import { PriceSingleDataPoint } from '../../models/prices';
+import { Loader } from 'features/loader';
+import { Graph, RangeButtons } from'features/charts/components'
+import { 
+    ChartSingleDataPoint, 
+    Range, 
+    AppState, 
+    PriceSingleDataPoint 
+} from 'models';
+import { updateChartRange } from 'redux/actions';
+import { currentPrice } from 'redux/selectors';
 
 const ChartLayoutContainer = styled.div`    
     flex: 0 1 66%;

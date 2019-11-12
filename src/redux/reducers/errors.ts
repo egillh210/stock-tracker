@@ -1,8 +1,10 @@
-import { Error } from '../../models/errors'
-import { ERROR, ErrorAction } from '../actions/error'
+import { 
+    ERROR, ErrorAction ,
+    RESET_APP_STATE
+} from 'redux/actions'
 
 export interface ErrorState {
-    quote: boolean,
+    keystats: boolean,
     news: boolean,
     company: boolean,
     peers: boolean,
@@ -10,7 +12,7 @@ export interface ErrorState {
 }
 
 const errorsInitialState: ErrorState = {
-    quote: false,
+    keystats: false,
     news: false,
     company: false,
     peers: false,
@@ -22,6 +24,9 @@ export const errors = (state = errorsInitialState, action: ErrorAction) => {
     switch (type) {
         case ERROR: {
             return {...state, [payload]: true}
+        }
+        case RESET_APP_STATE: {
+            return errorsInitialState;
         }
         default: {
             return state;

@@ -1,8 +1,9 @@
 import React, { memo, FC } from 'react'
 import styled from '@emotion/styled'
-import { Range } from '../models/range'
+import { Range } from 'models'
+const { div, input } = styled;
 
-const LabelRange = styled.div`
+const LabelRange = div`
     margin: 0rem 0rem 1rem 0.5rem;
     display: inline-block;
     color: inherit;
@@ -12,11 +13,11 @@ const LabelRange = styled.div`
     cursor: pointer;
 `
 
-const Input = styled.input`
+const Input = input`
     display: none;
 `
 
-const ButtonsContainer = styled.div`
+const ButtonsContainer = div`
     display: flex;
     flex-direction: row-reverse;
     margin-right: 60px;
@@ -45,16 +46,29 @@ const RangeButton: FC<RangeButtonProps> = ({ range, update, current }) => {
     )
 }
 
-const ranges: Range[] = ['MAX', '5y', '1y', '1m', '5d', '1d'];
+const ranges: Range[] = [
+    'MAX', 
+    '5y', 
+    '1y', 
+    '1m', 
+    '5d', 
+    '1d'
+];
 
-type TestProps = {
+type ButtonProps = {
     range: Range,
     update: (range: Range) => void
 }
 
-export const RangeButtons = memo<TestProps>(({ range, update }) => {
+export const RangeButtons = memo<ButtonProps>(({ range, update }) => {
 
-    const buttons = ranges.map(rangeItem => <RangeButton key={rangeItem} current={rangeItem === range} range={rangeItem} update={update} />);
+    const buttons = ranges.map(rangeItem => 
+        <RangeButton 
+            key={rangeItem} 
+            current={rangeItem === range} 
+            range={rangeItem} 
+            update={update} 
+        />);
 
     return (
         <ButtonsContainer>

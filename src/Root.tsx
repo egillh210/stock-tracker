@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { 
-    Search,
+    SearchComponent as Search,
     CompanyOverviewComponent as CompanyOverview,
     KeyStatsComponent as KeyStats,
     NewsComponent as News,

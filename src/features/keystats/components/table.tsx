@@ -1,8 +1,9 @@
 import React, { memo } from 'react'
 import styled from '@emotion/styled'
-import { KeyStats } from '../models'
+import { KeyStats } from 'models'
+const { div, td, tr, table, tbody } = styled;
 
-const TableLayoutContainer = styled.div`
+const TableLayoutContainer = div`
     width: 100%;
     display flex;
     justify-content: space-between;
@@ -12,13 +13,13 @@ const TableLayoutContainer = styled.div`
     };
 `
 
-const TD = styled.td`
+const TD = td`
     color: #beccdc;
     font-size: 14px;
     font-weight: 300;
 `
 
-const TR = styled.tr`
+const TR = tr`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,12 +35,12 @@ const TR = styled.tr`
     }
 `
 
-const Table =styled.table`
+const Table =table`
     width: 90%;
     margin-top: -10px;
 `
 
-const TableDivider = styled.div`
+const TableDivider = div`
     width: 90px;
     @media(max-width: 1099px) {
         width: 68px;
@@ -49,7 +50,7 @@ const TableDivider = styled.div`
     };
 `
 
-const Tbody = styled.tbody`
+const Tbody = tbody`
     width: 100%;
 `
 
