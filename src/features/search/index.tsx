@@ -1,17 +1,23 @@
-import React, { useState, useEffect, FC, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { AppState } from '../../models/appState';
-import { TickerCard } from './components/tickerCard';
+import React, { useState, useEffect, FC, useCallback } from 'react'
 import styled from '@emotion/styled'
-import { socketService } from '../../services/socket-service'
-import { SearchBar } from'./components/search-bar'
-import { StockList } from './components/stockList'
-import { DateTime } from './components/date'
-import { Tags } from './components/tags'
-import { updateTicker } from './redux/actions';
-import { PriceSingleDataPoint } from '../../models/prices';
-import { currentPrice } from '../../redux/selectors/prices';
-
+import { useSelector, useDispatch } from 'react-redux'
+import { AppState, PriceSingleDataPoint } from 'models'
+import { socketService } from 'services'
+import { updateTicker } from 'redux/actions'
+import { currentPrice } from 'redux/selectors'
+import { 
+    TickerCard,
+    SearchBar,
+    StockList,
+    DateTime,
+    Tags
+} from 'features/search/components'
+import {
+    Stock,
+    Selectors,
+    Search,
+    ChangeTicker
+} from 'models'
 const { div } = styled;
 
 const SearchLayoutContainer = div`
@@ -49,32 +55,16 @@ const DateRowLayoutContainer = div`
     }
 `
 
-export type Stock = {
-    name: string,
-    symbol: string,
-    exchange: string
-}
-
-type Selectors = {
-    tags: string[],
-    primaryExchange: string | null,
-    isUSMarketOpen: boolean
-}
-
-export type Search = (query: string) => void;
-
-export type ChangeTicker = (stock: Stock) => void;
-
 const socket = socketService.get();
 
-export const Search: FC<{}> = () => {
+export const SearchComponent: FC<{}> = () => {
 
     const dispatch = useDispatch();
 
     const [query, setQuery] = useState<string>('');
     const [stockList, setStockList] = useState<Stock[]>([]);
     const [selectedStock, setSelectedStock] = useState<string>('Apple Inc. (AAPL)');
-
+                
     const {
         tags,
         primaryExchange,

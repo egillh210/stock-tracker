@@ -10,6 +10,7 @@ import { news } from '../features/news/redux/reducer';
 import { peers } from '../features/peers/redux/reducer';
 import { ticker } from '../features/search/redux/reducer';
 import { favorites } from '../features/footer/redux/reducer';
+import { errors } from './reducers/errors';
 
 
 const rootReducer = combineReducers({
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
     peers,
     charts,
     favorites,
-    prices
+    prices,
+    errors
 })
 
 declare global {

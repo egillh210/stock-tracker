@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
-import { Article } from './models/news';
-import moment from 'moment';
+import React, { memo } from 'react'
+import moment from 'moment'
 import styled from '@emotion/styled'
+import { Article } from 'models'
 
 const ArticleItemContainer = styled.div`
     font-weight: 400;

@@ -1,6 +1,5 @@
 import React, { memo } from 'react'
-import { Range } from '../models/range'
-import { ChartSingleDataPoint } from '../models/charts'
+import { Range, ChartSingleDataPoint } from 'models'
 import { 
     XAxis, 
     YAxis, 
@@ -26,11 +25,11 @@ export const Graph = memo<GraphProps>(({
     }) => {
 
     const interval = ( 
-        range === '5d' ? 39 
-        : range === '1m' ? 12 
-        : range === '1d' ? 59 
-        : range === '1y' ? 23 
-        : 253
+        range === '5d' ? 39 :
+        range === '1m' ? 12 :
+        range === '1d' ? 59 :
+        range === '1y' ? 23 :
+        253
     )
     return (
         <ResponsiveContainer aspect={0.1} width='99%' maxHeight={425}>

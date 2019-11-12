@@ -1,0 +1,1 @@
+export * from 'redux/selectors/prices';

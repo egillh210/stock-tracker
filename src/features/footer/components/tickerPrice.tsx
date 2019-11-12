@@ -1,31 +1,28 @@
 import React, { memo } from 'react'
 import styled from '@emotion/styled'
-import { PriceSingleDataPoint } from '../../../models/prices';
+import { PriceSingleDataPoint } from 'models';
+const { div, span } = styled;
 
 
 type ColorProps = {
     color: string
 }
 
-const TickerPriceContainer = styled.div`
+const TickerPriceContainer = div`
     margin-right: 25px;
     display: flex;
     flex: 0 0 1;
     font-size: 14px;
 `
 
-const Ticker = styled.div`
+const Ticker = div`
     margin-right: 10px;
     text-transform: uppercase;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
 `
 
-const PriceLayoutContainer = styled.div`
+const PriceLayoutContainer = div`
     font-size: inherit;
     display: flex;
     font-weight: normal;
@@ -42,30 +39,30 @@ const PriceLayoutContainer = styled.div`
     };
 `
 
-const PriceChange = styled.span`
+const PriceChange = span`
     display: flex;
     margin-right: 10px;
 `
 
-const PriceIcon = styled.span`
+const PriceIcon = span`
     font-size: 0.5em;
     align-self: flex-start;
     margin-top: 1px;
 `
 
-const PriceContainer = styled.span`
+const PriceContainer = span`
     display: flex;
     flex: 0 0 1;
     margin-right: 10px;
 `
 
-const DollarIcon = styled.div`
+const DollarIcon = div`
     font-size: 8px;
     font-weight: 400;
     margin-top: 1px;
 `
 
-const ChangeLayoutContainer = styled.div<ColorProps>`
+const ChangeLayoutContainer = div<ColorProps>`
     color: ${(props: ColorProps) => props.color};
     display: flex;
 `

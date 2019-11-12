@@ -1,15 +1,14 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Article, News } from './models'
-import { AppState } from '../../models/appState';
-import { Error } from '../../models/errors';
 import styled from '@emotion/styled'
-import { Title } from '../../Root'
-import { ArticleComponent } from './article';
-import { Loader } from '../loader/Loader'
+import { Article, News, AppState } from 'models'
+import { Title } from 'Root'
+import { ArticleComponent } from 'features/news/article';
+import { Loader } from 'features/loader'
+const { div } = styled;
 
 
-const NewsLayoutContainer =styled.div`
+const NewsLayoutContainer =div`
     flex: 0 1 34%;
     margin-top: 40px;
     margin-left: 26px;
@@ -26,7 +25,7 @@ const NewsLayoutContainer =styled.div`
     }
 `
 
-const ArticleLayoutContainer = styled.div`
+const ArticleLayoutContainer = div`
     margin-top: 15px;
     display: flex;
     flex-direction: column;
@@ -35,28 +34,48 @@ const ArticleLayoutContainer = styled.div`
     overflow: auto;
 `
 
+const NewsError = div`
+    color: red;
+    margin-bottom: 1rem;
+`
+
 export const NewsComponent: FC<{}> = () => {
 
     const news: News = useSelector(({ news }: AppState) => news)
     
-    const error: Error = useSelector(({ errors }: AppState) => errors);
+    const error: boolean = useSelector(({ errors: { news } }: AppState) => news);
 
-    const Loading = <Loader className='margin-top: 200px; @media(max-width: 750px) {margin-top: 50px; margin-bottom: 50px;};' size={50} seperation={2} speed={1.4} />
+    const Loading = (
+        <Loader 
+            className={`
+                margin-top: 200px; 
+                @media(max-width: 750px) 
+                {
+                    margin-top: 50px; 
+                    margin-bottom: 50px;
+                };
+            `}
+            size={50} 
+            seperation={2} 
+            speed={1.4} 
+        />)
 
-    const NewsArray = news.length > 0 ? news.map((article: Article) => <ArticleComponent key={article.headline} {...article}/>) : Loading;
+    const NewsArray = news.map((article: Article) => <ArticleComponent key={article.url} {...article}/>)
 
-    const NewsError = news.length > 0 ? (
-        <div style={{color: 'red', marginBottom: '1rem'}}>Connection to server lost.</div>
-    ) : null;
+    const ErrorMessage = (
+        <NewsError>Error fetching news.</NewsError>
+    );
 
 
     return (
         <NewsLayoutContainer>
             <Title>LATEST NEWS</Title>
             {
-                error && error.news
-                ? NewsError 
-                : <ArticleLayoutContainer>{NewsArray}</ArticleLayoutContainer>}
+                error ? ErrorMessage :
+                <ArticleLayoutContainer>
+                    {news.length ? NewsArray : Loading}
+                </ArticleLayoutContainer>
+            }
         </NewsLayoutContainer>
 
     )

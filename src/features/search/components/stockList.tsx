@@ -1,9 +1,9 @@
-import React, { memo, FC, MouseEvent, MouseEventHandler } from 'react'
+import React, { memo, FC, MouseEventHandler } from 'react'
 import styled from '@emotion/styled'
-import { Stock } from '../'
-import { ChangeTicker } from '../';
+import { Stock, ChangeTicker } from 'models'
+const { div, td, tr, span } = styled;
 
-const StockListLayoutContainer = styled.div`
+const StockListLayoutContainer = div`
     position: absolute;
     margin: 0 2.5% 0 2.5%;
     width: 100%;
@@ -20,14 +20,14 @@ const StockListLayoutContainer = styled.div`
     };
 `
 
-const TdSymbol = styled.td`
+const TdSymbol = td`
     color: #0068ff;
     padding-top: 8px;
     padding-bottom: 8px;
     max-width: 12px;
 `
 
-const TdName = styled.td`
+const TdName = td`
     color: #fff;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -35,7 +35,7 @@ const TdName = styled.td`
     left: 80px;
 `
 
-const TR = styled.tr`
+const TR = tr`
     margin-bottom: 100%;
     position: relative;
     &:hover {
@@ -45,7 +45,7 @@ const TR = styled.tr`
     }
 `
 
-const TdEx = styled.span`
+const TdEx = span`
     font-size: 14px;
     padding: 2px;
     background-color: rgba(128, 180, 255, 0.13);
@@ -65,12 +65,19 @@ type StockProps = {
     changeTicker: ChangeTicker,
 }
 
-export const StockListItem: FC<StockProps> = ({ stock, changeTicker }) => {
+export const StockListItem: FC<StockProps> = ({ 
+    stock,
+    stock: {
+        name,
+        symbol,
+        exchange
+    },
+    changeTicker 
+}) => {
 
-    const { name, symbol, exchange } = stock;
-
-    const handleClick: MouseEventHandler<HTMLTableRowElement> = (event: MouseEvent<HTMLTableRowElement>) => {
-        event.preventDefault();
+    const handleClick: MouseEventHandler<HTMLTableRowElement> = (
+        { preventDefault }) => {
+        preventDefault();
         changeTicker(stock);
     }
 
@@ -95,7 +102,13 @@ export const StockList = memo<StockListProps>(({
         <StockListLayoutContainer tabIndex={-1}>
             <table style={{width: '100%'}}>
                 <tbody style={{fontSize: '18px'}}>
-                    {stockList.map(({ name, ...rest}: Stock) => <StockListItem key={name} stock={{ ...rest, name }} changeTicker={changeTicker} />)}
+                    {stockList.map(({ name, ...rest}: Stock) => 
+                        <StockListItem 
+                            key={name} 
+                            stock={{ ...rest, name }} 
+                            changeTicker={changeTicker} 
+                        />
+                    )}
                 </tbody> 
             </table>               
         </StockListLayoutContainer>

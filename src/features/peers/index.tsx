@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../models/appState';
-import { Title } from '../../Root'
 import styled from '@emotion/styled'
-import { socketService } from '../../services/socket-service';
+import { useSelector } from 'react-redux';
+import { AppState } from 'models';
+import { Title } from 'Root'
+import { socketService } from 'services';
 const { div, span } = styled;
 
 const PeersLayoutContainer = div`
