@@ -1,12 +1,13 @@
 import React, { memo } from 'react'
 import styled from '@emotion/styled'
+const { div, span } = styled
 
-const TagsLayoutContainer = styled.div`
+const TagsLayoutContainer = div`
     display: flex;
     flex-direction: row;
 `
 
-const Tag = styled.span`
+const Tag = span`
     background-color: #415f8a;
     border-radius: 2px;
     height: 22px;

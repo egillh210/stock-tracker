@@ -11,8 +11,9 @@ import {
 } from 'models';
 import { updateChartRange } from 'redux/actions';
 import { currentPrice } from 'redux/selectors';
+const { div } = styled;
 
-const ChartLayoutContainer = styled.div`    
+const ChartLayoutContainer = div`    
     flex: 0 1 66%;
     margin-top: 15px;
     margin-left: -35px;

@@ -1,8 +1,9 @@
-import React, { memo } from 'react';
+import React, { memo } from 'react'
 import styled from '@emotion/styled'
-import { PriceSingleDataPoint } from '../../../models/prices';
+import { PriceSingleDataPoint } from 'models'
+const { div, span } = styled
 
-const PriceStats = styled.div`
+const PriceStats = div`
     font-size: inherit;
     display: flex;
     flex: 0 0 300px;
@@ -19,13 +20,13 @@ const PriceStats = styled.div`
     };
 `
 
-const ChangeItem = styled.span`
+const ChangeItem = span`
     display: flex;
     margin-left: 5px;
     margin-right: 5px;
 `
 
-const PriceIcon = styled.span`
+const PriceIcon = span`
     font-size: 20px;
     height: 20px;
     width: 120x;
@@ -34,13 +35,13 @@ const PriceIcon = styled.span`
     object-fit: contain;
 `
 
-const PriceSpan = styled.span`
+const PriceSpan = span`
     display: flex;
     flex: 0 0 1;
     margin-right: 13px;
 `
 
-const DollarIcon = styled.div`
+const DollarIcon = div`
     font-size: 20px;
     height: 24px;
     width: 12px;
@@ -52,7 +53,7 @@ type ColorProps = {
     color: string
 }
 
-const ChangeContainer = styled.div<ColorProps>`
+const ChangeContainer = div<ColorProps>`
     color: ${(props: ColorProps) => props.color};
     display: flex;
 `
