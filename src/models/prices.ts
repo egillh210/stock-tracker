@@ -7,4 +7,3 @@ export interface PriceSingleDataPoint {
     error: boolean,
 }
 
-export type Prices = PriceSingleDataPoint[];

@@ -1,8 +1,8 @@
 import { CompanyOverview } from '../features/companyOverview/models/companyOverview'
 import { KeyStats } from '../features/keystats/models/keyStats'
 import { Charts } from '../features/charts/models/charts'
-import { News } from '../features/news/models/news'
-import { Prices } from './prices'
+import { Article } from '../features/news/models/news'
+import { PriceSingleDataPoint } from './prices'
 import { Error } from './errors';
 
 export type AppState = {
@@ -10,9 +10,9 @@ export type AppState = {
     companyOverview: CompanyOverview,
     keyStats: KeyStats,
     charts: Charts,
-    news: News,
+    news: Article[],
     peers: string[],
     favorites: string[],
-    prices: Prices,
+    prices: PriceSingleDataPoint[],
     errors: Error
 }
