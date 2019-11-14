@@ -31,7 +31,7 @@ const Time = div`
 export const ArticleComponent = memo<Article>(({ url, headline, datetime, source }) => {
     return (
         <ArticleItemContainer>
-            <Link href={url} target='_blank'>
+            <Link href={url} target='_blank' rel="noopener">
                 <div style={{fontSize: 'inherit'}}>{headline}</div>
             </Link>
             <Time>{moment(datetime).fromNow()} - {source}</Time>
