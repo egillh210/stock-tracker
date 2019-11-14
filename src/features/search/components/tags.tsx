@@ -27,14 +27,14 @@ type TagsProps = {
 
 export const Tags = memo<TagsProps>(({
     primaryExchange, 
-    tags: [sector, currency]
+    tags: [sector, industry]
     }) => {
         
     return (
         <TagsLayoutContainer>
             <Tag>{primaryExchange}</Tag>
             <Tag>{sector}</Tag>
-            <Tag>{currency}</Tag>
+            <Tag>{industry}</Tag>
         </TagsLayoutContainer>
     )
 })
