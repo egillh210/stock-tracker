@@ -4,5 +4,3 @@ export interface Article {
     datetime: number,
     source: string
 }
-
-export type News = Article[]

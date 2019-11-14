@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled'
-import { Article, News, AppState } from 'models'
+import { Article, AppState } from 'models'
 import { Title } from 'features/Root'
 import { ArticleComponent } from 'features/news/article';
 import { Loader } from 'features/loader'
@@ -41,7 +41,7 @@ const NewsError = div`
 
 export const NewsComponent: FC<{}> = () => {
 
-    const news: News = useSelector(({ news }: AppState) => news)
+    const news: Article[] = useSelector(({ news }: AppState) => news)
     
     const error: boolean = useSelector(({ errors: { news } }: AppState) => news);
 
